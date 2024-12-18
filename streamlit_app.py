@@ -250,20 +250,41 @@ elif st.session_state["page"] == "page2":
     col1, col2, col3, col4, col5 = st.columns(5)
 
     # Ajouter des métriques dans chaque colonne
-    with col1:
-        st.metric("Nombre de missions d’inspection planifiées dans l’année", "29", "-11.1%")
-        
-    with col2:
-        st.metric("Nombre de missions d’inspection planifiées arrivant à échéance le mois précédent", "23", "N/A")
-        
-    with col3:
-        st.metric("Nombre de missions d’inspection réalisées jusqu’au mois précédent ", "271", "+31.4%")
-        
-    with col4:
-        st.metric("Nombre de missions d’inspection arrivées à  échéance au cours du mois", "34", "+50%")
+    import streamlit as st
 
-    with col5:
-        st.metric("Nombre de missions d’inspection réalisées dans les délais jusqu’au mois précédent", "38", "+5%")
+# Configuration de la page
+st.set_page_config(layout="wide")
+
+# Titre principal
+st.title("Suivi des missions d'inspection")
+
+# Création de colonnes
+col1, col2, col3, col4, col5 = st.columns(5)
+
+# Première métrique
+with col1:
+    st.markdown("**Nombre de missions d’inspection planifiées dans l’année**")
+    st.metric(label="", value="29", delta="-11.1%", delta_color="inverse")
+
+# Deuxième métrique
+with col2:
+    st.markdown("**Nombre de missions d’inspection planifiées arrivant à échéance<br>le mois précédent**", unsafe_allow_html=True)
+    st.metric(label="", value="23", delta="N/A")
+
+# Troisième métrique
+with col3:
+    st.markdown("**Nombre de missions d’inspection réalisées<br>jusqu’au mois précédent**", unsafe_allow_html=True)
+    st.metric(label="", value="271", delta="+31.4%")
+
+# Quatrième métrique
+with col4:
+    st.markdown("**Nombre de missions d’inspection arrivées<br>à échéance au cours du mois**", unsafe_allow_html=True)
+    st.metric(label="", value="34", delta="+50%")
+
+# Cinquième métrique
+with col5:
+    st.markdown("**Nombre de missions d’inspection réalisées<br>dans les délais jusqu’au mois précédent**", unsafe_allow_html=True)
+    st.metric(label="", value="38", delta="+5%")
 
  
  # Données des mois et des taux

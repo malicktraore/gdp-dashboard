@@ -3,13 +3,19 @@ import pandas as pd
 import math
 from pathlib import Path
 import matplotlib.pyplot as plt 
+import plotly.graph_objects as go
+from datetime import datetime
 
 
+
+
+# Set the title and favicon that appear in the Browser's tab bar.
 st.set_page_config(
     page_title='TABLEAU DE BORD DE SUIVI DES DOSSIERS par Malick TRAORE',
     page_icon='teteigf12.png', # This is an emoji shortcode. Could be a URL too.
     layout='wide'
 )
+
 
 # -----------------------------------------------------------------------------
 # Declare some useful functions.
@@ -219,7 +225,48 @@ elif st.session_state["page"] == "page2":
     with col4:
         st.metric("Nouveaux leads", "234", "+5790%")
 
+    # Définir les données manuellement
+    data = [
+        {"N°": 1, "Programmes /projets": 1, "Intitulé de la mission": "A", "Objectif": "B", 
+        "Date fin": "18/12/2025", "Etat d’avancement": 10},
+        {"N°": 2, "Programmes /projets": 2, "Intitulé de la mission": "G", "Objectif": "H", 
+        "Date fin": "20/12/2024", "Etat d’avancement": 99},
+        {"N°": 3, "Programmes /projets": 8, "Intitulé de la mission": "ON", "Objectif": "OD", 
+        "Date fin": "19/12/2024", "Etat d’avancement": 40},
+        {"N°": 4, "Programmes /projets": 3, "Intitulé de la mission": "A", "Objectif": "B", 
+        "Date fin": "02/09/2025", "Etat d’avancement": 0},
+        {"N°": 5, "Programmes /projets": 4, "Intitulé de la mission": "G", "Objectif": "H", 
+        "Date fin": "24/12/2024", "Etat d’avancement": 10},
+    ]
 
+    # Convertir les données en DataFrame
+    df = pd.DataFrame(data)
+
+    # Convertir la colonne 'Date fin' en type datetime
+    df['Date fin'] = pd.to_datetime(df['Date fin'], format='%d/%m/%Y')
+
+    # Filtrer les lignes du mois en cours et ayant un état d'avancement < 50%
+    mois_actuel = datetime.now().month
+    annee_actuelle = datetime.now().year
+
+    df_filtre = df[
+        (df['Date fin'].dt.month == mois_actuel) &
+        (df['Date fin'].dt.year == annee_actuelle) &
+        (df['Etat d’avancement'] < 50)
+    ]
+
+    # --- Interface Streamlit ---
+
+    st.title("Missions arrivant à échéance ce mois et < 50 % d'avancement")
+
+    if not df_filtre.empty:
+        st.write("### Résultats filtrés :")
+        st.dataframe(df_filtre)
+    else:
+        st.info("Aucune mission ne correspond aux critères pour ce mois.")
+
+    # Navigation vers la page 2
+    
 
 
 
@@ -246,4 +293,3 @@ elif st.session_state["page"] == "page2":
 elif st.session_state["page"] == "page3":
     page_3()
 
-  

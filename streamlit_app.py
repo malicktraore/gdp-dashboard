@@ -246,25 +246,23 @@ elif st.session_state["page"] == "page2":
 # Titre de la page
     #st.title("Tableau de bord des performances")
 
-    # Créer des colonnes pour organiser les cadrans
     col1, col2, col3, col4, col5 = st.columns(5)
 
     # Ajouter des métriques dans chaque colonne
     with col1:
-        st.metric("Nombre de missions d’inspection planifiées dans l’année", "29", "-11.1%")
+        st.metric("Nombre de missions d’audit interne planifiées dans l’année ", "29", "-11.1%")
         
     with col2:
-        st.metric("Nombre de missions arrivant à échéance ce mois", "23", "N/A")
+        st.metric("Nombre de missions d’audit interne planifiées arrivant à échéance le mois précédent ", "23", "N/A")
         
     with col3:
-        st.metric("Nombre de missions réalisées jusqu’au mois précédent ", "271", "+31.4%")
+        st.metric("Nombre de missions d’audit interne réalisées jusqu’au mois précédent ", "271", "+31.4%")
         
     with col4:
-        st.metric("Nombre de missions arrivées à échéance ce mois", "34", "+50%")
+        st.metric("Nombre de missions d’audit interne arrivées à  échéance au cours du mois ", "34", "+50%")
 
     with col5:
-        st.metric("Nombre de missions réalisées dans les délais jusqu’au mois précédent", "38", "+5%")
-
+        st.metric("Nombre de missions d’audit interne réalisées dans les délais jusqu’au mois précédent ", "38", "+5%")
  
  # Données des mois et des taux
     mois = [
